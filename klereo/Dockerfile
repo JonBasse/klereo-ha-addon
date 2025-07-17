@@ -35,7 +35,8 @@ RUN chmod a+x /etc/services.d/klereo/run \
 # Set working directory
 WORKDIR /usr/bin
 
-# Use default Home Assistant add-on entrypoint
+# Set entrypoint to use our startup script directly
+CMD ["/etc/services.d/klereo/run"]
 
 # Labels
 LABEL \

@@ -1,12 +1,23 @@
 #!/usr/bin/bash
 
+echo "$(date): Klereo add-on starting up..."
+echo "$(date): Current user: $(whoami)"
+echo "$(date): Current directory: $(pwd)"
+echo "$(date): Environment variables:"
+env | grep -E "(SUPERVISOR|HOME|PATH)" | head -10
+
 # Load configuration from Home Assistant
 CONFIG_PATH="/data/options.json"
 
+echo "$(date): Looking for configuration at: $CONFIG_PATH"
 if [ ! -f "$CONFIG_PATH" ]; then
-    echo "ERROR: Configuration file not found at $CONFIG_PATH"
+    echo "$(date): ERROR: Configuration file not found at $CONFIG_PATH"
+    echo "$(date): Available files in /data:"
+    ls -la /data/ 2>/dev/null || echo "$(date): /data directory not accessible"
     exit 1
 fi
+
+echo "$(date): Configuration file found, parsing..."
 
 # Parse configuration using jq
 klereo_username=$(jq -r '.klereo_username // empty' "$CONFIG_PATH")
