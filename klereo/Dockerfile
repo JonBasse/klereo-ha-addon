@@ -27,16 +27,14 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 COPY rootfs /
 
 # Make executable
-RUN chmod a+x /etc/services.d/klereo/run \
-    && chmod a+x /etc/services.d/klereo/finish \
-    && chmod a+x /etc/cont-init.d/klereo.sh \
+RUN chmod a+x /entrypoint.sh \
     && chmod a+x /usr/bin/klereo
 
 # Set working directory
 WORKDIR /usr/bin
 
-# Direct Python execution
-CMD ["python3", "/usr/bin/klereo"]
+# Use custom entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Labels
 LABEL \
@@ -44,4 +42,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.0.9"
+    io.hass.version="1.1.0"
