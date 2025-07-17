@@ -1,44 +1,43 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/bash
 
-# Set log level
-declare log_level
-log_level=$(bashio::config 'log_level' 'info')
-export LOG_LEVEL="${log_level^^}"
+# Load configuration from Home Assistant
+CONFIG_PATH="/data/options.json"
 
-# Get configuration
-declare klereo_username
-declare klereo_password
-declare update_interval
-declare homeassistant_url
-declare homeassistant_token
+if [ ! -f "$CONFIG_PATH" ]; then
+    echo "ERROR: Configuration file not found at $CONFIG_PATH"
+    exit 1
+fi
 
-klereo_username=$(bashio::config 'klereo_username')
-klereo_password=$(bashio::config 'klereo_password')
-update_interval=$(bashio::config 'update_interval' '600')
-homeassistant_url=$(bashio::config 'homeassistant_url' 'http://supervisor/core')
-homeassistant_token=$(bashio::config 'homeassistant_token' '')
+# Parse configuration using jq
+klereo_username=$(jq -r '.klereo_username // empty' "$CONFIG_PATH")
+klereo_password=$(jq -r '.klereo_password // empty' "$CONFIG_PATH")
+update_interval=$(jq -r '.update_interval // 600' "$CONFIG_PATH")
+log_level=$(jq -r '.log_level // "info"' "$CONFIG_PATH")
+homeassistant_url=$(jq -r '.homeassistant_url // "http://supervisor/core"' "$CONFIG_PATH")
+homeassistant_token=$(jq -r '.homeassistant_token // empty' "$CONFIG_PATH")
 
 # Export configuration as environment variables
 export KLEREO_USERNAME="${klereo_username}"
 export KLEREO_PASSWORD="${klereo_password}"
 export UPDATE_INTERVAL="${update_interval}"
+export LOG_LEVEL="${log_level^^}"
 export HOMEASSISTANT_URL="${homeassistant_url}"
 export HOMEASSISTANT_TOKEN="${homeassistant_token}"
 
 # Log startup information
-bashio::log.info "Starting Klereo Pool Manager Add-on..."
-bashio::log.info "Log level: ${log_level}"
-bashio::log.info "Update interval: ${update_interval}s"
-bashio::log.info "Home Assistant URL: ${homeassistant_url}"
+echo "$(date): Starting Klereo Pool Manager Add-on..."
+echo "$(date): Log level: ${log_level}"
+echo "$(date): Update interval: ${update_interval}s"
+echo "$(date): Home Assistant URL: ${homeassistant_url}"
 
 # Validate configuration
-if bashio::var.is_empty "${klereo_username}"; then
-    bashio::log.fatal "Klereo username is required!"
+if [ -z "${klereo_username}" ]; then
+    echo "$(date): ERROR: Klereo username is required!"
     exit 1
 fi
 
-if bashio::var.is_empty "${klereo_password}"; then
-    bashio::log.fatal "Klereo password is required!"
+if [ -z "${klereo_password}" ]; then
+    echo "$(date): ERROR: Klereo password is required!"
     exit 1
 fi
 
@@ -46,5 +45,5 @@ fi
 cd /usr/bin || exit 1
 
 # Start the application
-bashio::log.info "Starting Klereo Pool Manager service..."
+echo "$(date): Starting Klereo Pool Manager service..."
 exec python3 /usr/bin/klereo

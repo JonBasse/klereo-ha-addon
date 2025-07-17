@@ -35,6 +35,8 @@ RUN chmod a+x /etc/services.d/klereo/run \
 # Set working directory
 WORKDIR /usr/bin
 
+# Use default Home Assistant add-on entrypoint
+
 # Labels
 LABEL \
     io.hass.name="Klereo Pool Manager" \
