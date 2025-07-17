@@ -29,6 +29,7 @@ COPY rootfs /
 # Make executable
 RUN chmod a+x /etc/services.d/klereo/run \
     && chmod a+x /etc/services.d/klereo/finish \
+    && chmod a+x /etc/cont-init.d/klereo.sh \
     && chmod a+x /usr/bin/klereo
 
 # Set working directory
@@ -43,4 +44,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.0.7"
+    io.hass.version="1.0.8"
