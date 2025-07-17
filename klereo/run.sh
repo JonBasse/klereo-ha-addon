@@ -1,0 +1,52 @@
+#!/usr/bin/with-contenv bashio
+
+# ==============================================================================
+# Home Assistant Add-on: Klereo Pool Manager
+# Runs the Klereo Pool Manager application
+# ==============================================================================
+
+bashio::log.info "Starting Klereo Pool Manager Add-on..."
+
+# Ensure log directory exists
+mkdir -p /var/log
+
+# Read configuration from supervisor
+klereo_username=$(bashio::config 'klereo_username')
+klereo_password=$(bashio::config 'klereo_password')
+update_interval=$(bashio::config 'update_interval')
+log_level=$(bashio::config 'log_level')
+
+# Validate required configuration
+if bashio::var.is_empty "${klereo_username}"; then
+    bashio::log.fatal "Klereo username is required!"
+    bashio::exit.nok
+fi
+
+if bashio::var.is_empty "${klereo_password}"; then
+    bashio::log.fatal "Klereo password is required!"
+    bashio::exit.nok
+fi
+
+# Export configuration as environment variables
+export KLEREO_USERNAME="${klereo_username}"
+export KLEREO_PASSWORD="${klereo_password}"
+export UPDATE_INTERVAL="${update_interval}"
+export LOG_LEVEL="${log_level^^}"
+
+# Home Assistant add-ons have automatic access to the supervisor API
+export HOMEASSISTANT_URL="http://supervisor/core"
+export HOMEASSISTANT_TOKEN="${SUPERVISOR_TOKEN}"
+
+# Log configuration
+bashio::log.info "Configuration loaded:"
+bashio::log.info "- Username: ${klereo_username}"
+bashio::log.info "- Update interval: ${update_interval}s"
+bashio::log.info "- Log level: ${log_level}"
+bashio::log.info "- Home Assistant integration: automatic via supervisor"
+
+# Change to application directory
+cd /usr/bin || bashio::exit.nok
+
+# Start the application
+bashio::log.info "Starting Klereo Pool Manager service..."
+exec python3 /usr/bin/klereo

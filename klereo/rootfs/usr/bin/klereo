@@ -67,20 +67,15 @@ class KlereoAddon:
         self.logger.info("Klereo Pool Manager Add-on starting...")
     
     def _load_config(self):
-        """Load configuration from options"""
+        """Load configuration from environment variables (set by run.sh)"""
         try:
-            # Try to load from Supervisor options
-            if os.path.exists('/data/options.json'):
-                with open('/data/options.json', 'r') as f:
-                    self.config = json.load(f)
-            else:
-                # Fallback to environment variables
-                self.config = {
-                    'klereo_username': os.getenv('KLEREO_USERNAME', ''),
-                    'klereo_password': os.getenv('KLEREO_PASSWORD', ''),
-                    'update_interval': int(os.getenv('UPDATE_INTERVAL', '600')),
-                    'log_level': os.getenv('LOG_LEVEL', 'info')
-                }
+            # Load from environment variables set by run.sh
+            self.config = {
+                'klereo_username': os.getenv('KLEREO_USERNAME', ''),
+                'klereo_password': os.getenv('KLEREO_PASSWORD', ''),
+                'update_interval': int(os.getenv('UPDATE_INTERVAL', '600')),
+                'log_level': os.getenv('LOG_LEVEL', 'info')
+            }
             
             # Validate required configuration
             if not self.config.get('klereo_username'):
@@ -117,8 +112,8 @@ class KlereoAddon:
             
             # Initialize Home Assistant integration
             # Home Assistant add-ons automatically have access to supervisor API
-            ha_url = 'http://supervisor/core'
-            ha_token = os.getenv('SUPERVISOR_TOKEN', '')
+            ha_url = os.getenv('HOMEASSISTANT_URL', 'http://supervisor/core')
+            ha_token = os.getenv('HOMEASSISTANT_TOKEN', os.getenv('SUPERVISOR_TOKEN', ''))
             
             self.ha_integration = HomeAssistantIntegration(
                 ha_url=ha_url,

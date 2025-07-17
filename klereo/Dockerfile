@@ -1,5 +1,4 @@
 ARG BUILD_FROM
-ARG BUILD_ARCH
 FROM $BUILD_FROM
 
 # Install system dependencies
@@ -21,20 +20,21 @@ RUN pip3 install --no-cache-dir --break-system-packages \
     aiohttp \
     schedule
 
-# Skip Tempio installation for now
-
-# Copy rootfs
+# Copy application files
 COPY rootfs /
 
-# Make executable
-RUN chmod a+x /entrypoint.sh \
-    && chmod a+x /usr/bin/klereo
+# Copy run script
+COPY run.sh /
+RUN chmod a+x /run.sh
+
+# Make application executable
+RUN chmod a+x /usr/bin/klereo
 
 # Set working directory
 WORKDIR /usr/bin
 
-# Use custom entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+# Use Home Assistant standard run script
+CMD ["/run.sh"]
 
 # Labels
 LABEL \
@@ -42,4 +42,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.1.0"
+    io.hass.version="1.2.0"
