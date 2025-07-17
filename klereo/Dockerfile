@@ -11,7 +11,8 @@ RUN apk add --no-cache \
     musl-dev \
     libffi-dev \
     openssl-dev \
-    python3-dev
+    python3-dev \
+    bash
 
 # Install Python dependencies
 RUN pip3 install --no-cache-dir \

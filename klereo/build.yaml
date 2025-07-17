@@ -1,9 +1,9 @@
 build_from:
-  aarch64: "ghcr.io/home-assistant/aarch64-base:2023.06.0"
-  amd64: "ghcr.io/home-assistant/amd64-base:2023.06.0"
-  armhf: "ghcr.io/home-assistant/armhf-base:2023.06.0"
-  armv7: "ghcr.io/home-assistant/armv7-base:2023.06.0"
-  i386: "ghcr.io/home-assistant/i386-base:2023.06.0"
+  aarch64: "ghcr.io/home-assistant/aarch64-base:latest"
+  amd64: "ghcr.io/home-assistant/amd64-base:latest"
+  armhf: "ghcr.io/home-assistant/armhf-base:latest"
+  armv7: "ghcr.io/home-assistant/armv7-base:latest"
+  i386: "ghcr.io/home-assistant/i386-base:latest"
 labels:
   org.opencontainers.image.title: "Home Assistant Add-on: Klereo Pool Manager"
   org.opencontainers.image.description: "Klereo pool management integration for Home Assistant"
