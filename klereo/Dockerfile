@@ -35,8 +35,8 @@ RUN chmod a+x /etc/services.d/klereo/run \
 # Set working directory
 WORKDIR /usr/bin
 
-# Use s6-overlay init system
-CMD ["/init"]
+# Direct Python execution
+CMD ["python3", "/usr/bin/klereo"]
 
 # Labels
 LABEL \
@@ -44,4 +44,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.0.8"
+    io.hass.version="1.0.9"

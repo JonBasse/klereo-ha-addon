@@ -43,7 +43,16 @@ class KlereoAddon:
     
     def _setup_logging(self):
         """Setup logging configuration"""
-        log_level = os.getenv('LOG_LEVEL', 'INFO').upper()
+        # Load config first to get log level
+        if os.path.exists('/data/options.json'):
+            try:
+                with open('/data/options.json', 'r') as f:
+                    temp_config = json.load(f)
+                    log_level = temp_config.get('log_level', 'info').upper()
+            except:
+                log_level = 'INFO'
+        else:
+            log_level = os.getenv('LOG_LEVEL', 'INFO').upper()
         
         logging.basicConfig(
             level=getattr(logging, log_level),
