@@ -30,13 +30,14 @@ COPY rootfs /
 
 # Make executable
 RUN chmod a+x /etc/services.d/klereo/run \
-    && chmod a+x /usr/bin/klereo
+    && chmod a+x /usr/bin/klereo \
+    && chmod a+x /run.sh
 
 # Set working directory
 WORKDIR /usr/bin
 
-# Set entrypoint to use our startup script directly
-CMD ["/etc/services.d/klereo/run"]
+# Use our simplified startup script
+CMD ["/run.sh"]
 
 # Labels
 LABEL \
