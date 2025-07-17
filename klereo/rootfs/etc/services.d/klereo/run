@@ -2,13 +2,10 @@
 
 # ==============================================================================
 # Home Assistant Add-on: Klereo Pool Manager
-# Combined startup script that handles configuration and Python execution
+# Runs the Klereo Pool Manager application
 # ==============================================================================
 
 bashio::log.info "Starting Klereo Pool Manager Add-on..."
-
-# Ensure log directory exists
-mkdir -p /var/log
 
 # Read configuration from supervisor
 klereo_username=$(bashio::config 'klereo_username')
@@ -42,11 +39,10 @@ bashio::log.info "Configuration loaded:"
 bashio::log.info "- Username: ${klereo_username}"
 bashio::log.info "- Update interval: ${update_interval}s"
 bashio::log.info "- Log level: ${log_level}"
-bashio::log.info "- Home Assistant integration: automatic via supervisor"
 
 # Change to application directory
-cd /usr/bin || bashio::exit.nok
+cd /usr/bin
 
-# Start the application directly
+# Start the application
 bashio::log.info "Starting Klereo Pool Manager service..."
 exec python3 -u /usr/bin/klereo
