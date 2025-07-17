@@ -3,6 +3,8 @@ FROM $BUILD_FROM
 
 # Install system dependencies
 RUN apk add --no-cache \
+    python3 \
+    py3-pip \
     curl \
     jq \
     gcc \
@@ -28,7 +30,8 @@ COPY run.sh /
 RUN chmod a+x /run.sh
 
 # Make application executable
-RUN chmod a+x /usr/bin/klereo
+RUN chmod a+x /usr/bin/klereo \
+    && chmod a+x /init
 
 # Set working directory
 WORKDIR /usr/bin
@@ -42,4 +45,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.2.0"
+    io.hass.version="1.2.1"
