@@ -5,6 +5,21 @@ All notable changes to the Klereo Pool Manager add-on will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-01-17
+
+### Fixed
+- Fixed add-on startup issues with container initialization
+- Added comprehensive debugging and logging to startup script
+- Fixed Docker CMD directive to properly execute startup script
+- Added detailed environment and configuration debugging
+- Improved error messages for configuration file issues
+
+### Added
+- Detailed startup logging with timestamps
+- Environment variable debugging output
+- Configuration file existence checking
+- File system state logging for troubleshooting
+
 ## [1.0.1] - 2025-01-17
 
 ### Fixed
