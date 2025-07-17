@@ -1,0 +1,4 @@
+name: "Klereo Pool Manager Add-on Repository"
+url: "https://github.com/JonBasse/klereo-ha-addon"
+maintainer: "JonBasse <https://github.com/JonBasse>"
+description: "Home Assistant add-on for Klereo pool management systems"

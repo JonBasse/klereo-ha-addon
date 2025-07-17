@@ -1,0 +1,22 @@
+configuration:
+  klereo_username:
+    name: "Nom d'utilisateur Klereo"
+    description: "Votre nom d'utilisateur du compte Klereo.fr"
+  klereo_password:
+    name: "Mot de passe Klereo"
+    description: "Votre mot de passe du compte Klereo.fr"
+  update_interval:
+    name: "Intervalle de mise à jour"
+    description: "Fréquence de mise à jour des données des capteurs (en secondes)"
+  log_level:
+    name: "Niveau de log"
+    description: "Niveau de verbosité des logs"
+  homeassistant_url:
+    name: "URL Home Assistant"
+    description: "URL vers l'API core de Home Assistant"
+  homeassistant_token:
+    name: "Token Home Assistant"
+    description: "Token d'accès longue durée (laisser vide pour auto-détection)"
+
+network:
+  8080/tcp: "Interface web (si activée)"

@@ -1,0 +1,35 @@
+name: Klereo Pool Manager
+version: "1.0.0"
+slug: klereo
+description: Klereo pool management integration for Home Assistant
+url: "https://github.com/JonBasse/klereo-ha-addon"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: false
+startup: application
+boot: auto
+map:
+  - share:rw
+  - config:rw
+options:
+  klereo_username: ""
+  klereo_password: ""
+  update_interval: 600
+  log_level: info
+  homeassistant_url: "http://supervisor/core"
+  homeassistant_token: ""
+schema:
+  klereo_username: "str"
+  klereo_password: "password"
+  update_interval: "int(300,3600)"
+  log_level: "list(debug|info|warning|error)"
+  homeassistant_url: "str"
+  homeassistant_token: "str?"
+ports:
+  8080/tcp: 8080
+environment:
+  LOG_LEVEL: info

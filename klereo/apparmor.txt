@@ -1,0 +1,64 @@
+#include <tunables/global>
+
+profile klereo_addon flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  # Allow network access
+  network inet,
+  network inet6,
+
+  # Allow access to Home Assistant API
+  network tcp,
+  network udp,
+
+  # Allow access to configuration files
+  /data/ r,
+  /data/** rw,
+  /config/ r,
+  /config/** rw,
+  /share/ r,
+  /share/** rw,
+
+  # Allow access to python
+  /usr/bin/python3 ix,
+  /usr/bin/python3.* ix,
+  /usr/lib/python3*/** r,
+
+  # Allow access to our scripts
+  /usr/bin/klereo r,
+  /usr/bin/klereo_* r,
+
+  # Allow access to system executables
+  /bin/* ix,
+  /sbin/* ix,
+  /usr/bin/* ix,
+  /usr/sbin/* ix,
+
+  # Allow access to temporary files
+  /tmp/** rw,
+  /var/tmp/** rw,
+
+  # Allow access to logs
+  /var/log/** rw,
+
+  # Allow access to SSL certificates
+  /etc/ssl/** r,
+
+  # Allow access to shared libraries
+  /lib/** r,
+  /usr/lib/** r,
+
+  # Allow access to device files
+  /dev/null rw,
+  /dev/random r,
+  /dev/urandom r,
+
+  # Allow access to proc and sys
+  /proc/** r,
+  /sys/** r,
+
+  # Deny access to sensitive files
+  deny /etc/shadow r,
+  deny /etc/passwd w,
+  deny /etc/group w,
+}

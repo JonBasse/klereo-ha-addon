@@ -1,0 +1,50 @@
+#!/usr/bin/with-contenv bashio
+
+# Set log level
+declare log_level
+log_level=$(bashio::config 'log_level' 'info')
+export LOG_LEVEL="${log_level^^}"
+
+# Get configuration
+declare klereo_username
+declare klereo_password
+declare update_interval
+declare homeassistant_url
+declare homeassistant_token
+
+klereo_username=$(bashio::config 'klereo_username')
+klereo_password=$(bashio::config 'klereo_password')
+update_interval=$(bashio::config 'update_interval' '600')
+homeassistant_url=$(bashio::config 'homeassistant_url' 'http://supervisor/core')
+homeassistant_token=$(bashio::config 'homeassistant_token' '')
+
+# Export configuration as environment variables
+export KLEREO_USERNAME="${klereo_username}"
+export KLEREO_PASSWORD="${klereo_password}"
+export UPDATE_INTERVAL="${update_interval}"
+export HOMEASSISTANT_URL="${homeassistant_url}"
+export HOMEASSISTANT_TOKEN="${homeassistant_token}"
+
+# Log startup information
+bashio::log.info "Starting Klereo Pool Manager Add-on..."
+bashio::log.info "Log level: ${log_level}"
+bashio::log.info "Update interval: ${update_interval}s"
+bashio::log.info "Home Assistant URL: ${homeassistant_url}"
+
+# Validate configuration
+if bashio::var.is_empty "${klereo_username}"; then
+    bashio::log.fatal "Klereo username is required!"
+    exit 1
+fi
+
+if bashio::var.is_empty "${klereo_password}"; then
+    bashio::log.fatal "Klereo password is required!"
+    exit 1
+fi
+
+# Change to working directory
+cd /usr/bin || exit 1
+
+# Start the application
+bashio::log.info "Starting Klereo Pool Manager service..."
+exec python3 /usr/bin/klereo
