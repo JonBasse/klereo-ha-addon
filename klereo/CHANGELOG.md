@@ -5,6 +5,21 @@ All notable changes to the Klereo Pool Manager add-on will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-01-17
+
+### Fixed
+- Fixed Docker base image compatibility issues
+- Fixed Python PEP 668 externally-managed-environment error
+- Fixed BUILD_ARCH undefined variable issue
+- Fixed add-on startup and configuration loading
+- Replaced bashio dependency with direct JSON parsing
+
+### Changed
+- Removed confusing Home Assistant URL and token configuration options
+- Simplified configuration to only essential Klereo credentials
+- Add-ons now automatically use Home Assistant supervisor API
+- Improved startup logging and error handling
+
 ## [1.0.0] - 2025-01-17
 
 ### Added
