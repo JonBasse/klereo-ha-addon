@@ -1,4 +1,5 @@
 ARG BUILD_FROM
+ARG BUILD_ARCH
 FROM $BUILD_FROM
 
 # Install system dependencies including Python
@@ -15,7 +16,7 @@ RUN apk add --no-cache \
     bash
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir \
+RUN pip3 install --no-cache-dir --break-system-packages \
     requests \
     pyjwt \
     python-dateutil \
