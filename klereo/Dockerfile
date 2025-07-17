@@ -25,6 +25,11 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 # Copy application files
 COPY rootfs /
 
+# Create /init script since Home Assistant forces it
+RUN echo '#!/bin/bash' > /init \
+    && echo 'exec /usr/bin/klereo-startup' >> /init \
+    && chmod 755 /init
+
 # Make all scripts executable
 RUN chmod a+x /usr/bin/klereo \
     && chmod a+x /usr/bin/klereo-startup
@@ -32,8 +37,8 @@ RUN chmod a+x /usr/bin/klereo \
 # Set working directory
 WORKDIR /usr/bin
 
-# Use the combined startup script directly
-CMD ["/usr/bin/klereo-startup"]
+# Home Assistant will call /init regardless of CMD
+CMD ["/init"]
 
 # Labels
 LABEL \
@@ -41,4 +46,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.3.0"
+    io.hass.version="1.3.1"
