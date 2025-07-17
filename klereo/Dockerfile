@@ -2,10 +2,8 @@ ARG BUILD_FROM
 ARG BUILD_ARCH
 FROM $BUILD_FROM
 
-# Install system dependencies including Python
+# Install system dependencies
 RUN apk add --no-cache \
-    python3 \
-    py3-pip \
     curl \
     jq \
     gcc \
@@ -45,4 +43,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.0.6"
+    io.hass.version="1.0.7"
