@@ -22,23 +22,18 @@ RUN pip3 install --no-cache-dir --break-system-packages \
     aiohttp \
     schedule
 
-# Copy run script
-COPY run.sh /
-RUN chmod a+x /run.sh
-
 # Copy application files
 COPY rootfs /
 
 # Make all scripts executable
 RUN chmod a+x /usr/bin/klereo \
-    && chmod a+x /init \
-    && ls -la /init
+    && chmod a+x /usr/bin/klereo-startup
 
 # Set working directory
 WORKDIR /usr/bin
 
-# Use Home Assistant standard run script
-CMD ["/run.sh"]
+# Use the combined startup script directly
+CMD ["/usr/bin/klereo-startup"]
 
 # Labels
 LABEL \
@@ -46,4 +41,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.2.2"
+    io.hass.version="1.3.0"

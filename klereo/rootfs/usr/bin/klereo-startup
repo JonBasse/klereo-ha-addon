@@ -2,7 +2,7 @@
 
 # ==============================================================================
 # Home Assistant Add-on: Klereo Pool Manager
-# Runs the Klereo Pool Manager application
+# Combined startup script that handles configuration and Python execution
 # ==============================================================================
 
 bashio::log.info "Starting Klereo Pool Manager Add-on..."
@@ -47,6 +47,6 @@ bashio::log.info "- Home Assistant integration: automatic via supervisor"
 # Change to application directory
 cd /usr/bin || bashio::exit.nok
 
-# Start the application
+# Start the application directly
 bashio::log.info "Starting Klereo Pool Manager service..."
-exec python3 /usr/bin/klereo
+exec python3 -u /usr/bin/klereo

@@ -1,3 +1,0 @@
-#!/bin/bash
-# Custom init script that calls our run.sh
-exec /run.sh
