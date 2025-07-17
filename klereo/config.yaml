@@ -1,5 +1,5 @@
 name: Klereo Pool Manager
-version: "1.0.3"
+version: "1.0.4"
 slug: klereo
 description: Klereo pool management integration for Home Assistant
 url: "https://github.com/JonBasse/klereo-ha-addon"

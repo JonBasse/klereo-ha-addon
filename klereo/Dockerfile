@@ -36,8 +36,8 @@ RUN chmod a+x /etc/services.d/klereo/run \
 # Set working directory
 WORKDIR /usr/bin
 
-# Use our simplified startup script
-CMD ["/run.sh"]
+# Direct startup approach
+CMD ["/etc/services.d/klereo/run"]
 
 # Labels
 LABEL \
@@ -45,4 +45,4 @@ LABEL \
     io.hass.description="Klereo pool management integration for Home Assistant" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version="1.0.3"
+    io.hass.version="1.0.4"
