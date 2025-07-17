@@ -32,8 +32,6 @@ The Klereo Pool Manager add-on enables Home Assistant to communicate with Klereo
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `log_level` | list | info | Log level: debug, info, warning, error |
-| `homeassistant_url` | string | http://supervisor/core | Home Assistant API URL |
-| `homeassistant_token` | string | (auto) | Long-lived access token |
 
 ## Supported Pool Parameters
 

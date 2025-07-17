@@ -70,9 +70,7 @@ class KlereoAddon:
                     'klereo_username': os.getenv('KLEREO_USERNAME', ''),
                     'klereo_password': os.getenv('KLEREO_PASSWORD', ''),
                     'update_interval': int(os.getenv('UPDATE_INTERVAL', '600')),
-                    'log_level': os.getenv('LOG_LEVEL', 'info'),
-                    'homeassistant_url': os.getenv('HOMEASSISTANT_URL', 'http://supervisor/core'),
-                    'homeassistant_token': os.getenv('HOMEASSISTANT_TOKEN', '')
+                    'log_level': os.getenv('LOG_LEVEL', 'info')
                 }
             
             # Validate required configuration
@@ -109,13 +107,12 @@ class KlereoAddon:
             self.logger.info("Klereo API connection successful")
             
             # Initialize Home Assistant integration
-            ha_token = self.config.get('homeassistant_token')
-            if not ha_token:
-                # Try to get token from supervisor
-                ha_token = os.getenv('SUPERVISOR_TOKEN', '')
+            # Home Assistant add-ons automatically have access to supervisor API
+            ha_url = 'http://supervisor/core'
+            ha_token = os.getenv('SUPERVISOR_TOKEN', '')
             
             self.ha_integration = HomeAssistantIntegration(
-                ha_url=self.config['homeassistant_url'],
+                ha_url=ha_url,
                 ha_token=ha_token,
                 api_client=self.api_client,
                 logger=self.logger

@@ -28,8 +28,6 @@ This add-on integrates Klereo pool management systems with Home Assistant, allow
 
 - **Update Interval**: How often to update sensor data (300-3600 seconds, default: 600)
 - **Log Level**: Logging verbosity (debug, info, warning, error, default: info)
-- **Home Assistant URL**: URL to Home Assistant core (default: http://supervisor/core)
-- **Home Assistant Token**: Long-lived access token (auto-detected if not provided)
 
 ### Example Configuration
 
@@ -38,7 +36,6 @@ klereo_username: "your_username"
 klereo_password: "your_password"
 update_interval: 600
 log_level: "info"
-homeassistant_url: "http://supervisor/core"
 ```
 
 ## Usage

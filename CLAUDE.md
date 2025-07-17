@@ -87,8 +87,6 @@ Required:
 Optional:
 - `update_interval`: Sensor update interval (300-3600s, default: 600s)
 - `log_level`: Logging verbosity (debug|info|warning|error)
-- `homeassistant_url`: Home Assistant core URL (default: http://supervisor/core)
-- `homeassistant_token`: Long-lived access token (auto-detected if not provided)
 
 ## Development Notes
 

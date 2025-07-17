@@ -11,12 +11,6 @@ configuration:
   log_level:
     name: "Log Level"
     description: "Logging verbosity level"
-  homeassistant_url:
-    name: "Home Assistant URL"
-    description: "URL to Home Assistant core API"
-  homeassistant_token:
-    name: "Home Assistant Token"
-    description: "Long-lived access token (leave empty for auto-detection)"
 
 network:
   8080/tcp: "Web interface (if enabled)"
